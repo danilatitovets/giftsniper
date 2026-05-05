@@ -1,0 +1,18 @@
+{
+  "name": "avoid_above_max",
+  "collection": "Demo Cream",
+  "number": 1002,
+  "attributes": [],
+  "listing_price_ton": 320,
+  "collection_floor_ton": 150,
+  "trait_floor_ton": null,
+  "recent_sales": [170, 175, 180, 185],
+  "trait_recent_sales": [],
+  "expected_decision": "AVOID",
+  "expected_safe_buy_range": [50, 250],
+  "expected_max_buy_range": [50, 280],
+  "expected_list_range": [120, 280],
+  "expected_confidence_range": [40, 95],
+  "expected_risk_range": [10, 95],
+  "notes": "Listing far above viable max buy."
+}

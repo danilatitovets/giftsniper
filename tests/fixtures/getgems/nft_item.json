@@ -1,0 +1,9 @@
+{
+  "data": {
+    "nftAddress": "EQ_TEST_1",
+    "attributes": [
+      {"trait_type": "Symbol", "value": "Moon"},
+      {"trait_type": "Backdrop", "value": "Ivory White"}
+    ]
+  }
+}

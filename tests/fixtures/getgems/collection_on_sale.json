@@ -1,0 +1,25 @@
+{
+  "data": {
+    "items": [
+      {
+        "id": "nft_1",
+        "nftAddress": "EQ_TEST_1",
+        "index": 101,
+        "price": 210.5,
+        "url": "https://getgems.io/nft/EQ_TEST_1",
+        "attributes": [
+          {"trait_type": "Symbol", "value": "Moon"},
+          {"trait_type": "Model", "value": "Vice Dream"}
+        ]
+      },
+      {
+        "id": "nft_2",
+        "nftAddress": "EQ_TEST_2",
+        "index": 102,
+        "price": 198.0,
+        "url": "https://getgems.io/nft/EQ_TEST_2",
+        "attributes": []
+      }
+    ]
+  }
+}

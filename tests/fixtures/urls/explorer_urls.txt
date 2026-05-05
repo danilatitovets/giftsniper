@@ -1,0 +1,6 @@
+# Public explorer URL shapes (synthetic addresses).
+https://tonviewer.com/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC
+https://tonviewer.com/nft/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC
+https://tonscan.org/address/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC
+https://tonscan.org/nft/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC
+https://tonapi.io/v2/nfts/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC

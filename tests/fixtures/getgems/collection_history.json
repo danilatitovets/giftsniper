@@ -1,0 +1,20 @@
+{
+  "data": {
+    "history": [
+      {
+        "id": "sale_1",
+        "type": "sale",
+        "price": 205,
+        "timestamp": "2026-05-01T10:00:00Z",
+        "index": 101
+      },
+      {
+        "id": "sale_2",
+        "type": "sold",
+        "price": 199,
+        "timestamp": "2026-04-30T10:00:00Z",
+        "index": 100
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+# Copy .env from .env.example and fill BOT_TOKEN, DATABASE_URL, API keys.
+# Entrypoint runs `alembic upgrade head` then starts the bot.
+
+services:
+  giftsniper-bot:
+    build: .
+    container_name: giftsniper-bot
+    env_file:
+      - .env
+    restart: unless-stopped

@@ -1,0 +1,20 @@
+{
+  "name": "speculative_rare_no_trait_sales",
+  "collection": "Demo Cream",
+  "number": 1003,
+  "attributes": [
+    { "trait_type": "Backdrop", "trait_value": "Monochrome" }
+  ],
+  "listing_price_ton": 118,
+  "collection_floor_ton": 150,
+  "trait_floor_ton": 220,
+  "recent_sales": [165, 168, 170, 172, 174, 176],
+  "trait_recent_sales": [],
+  "expected_decision": "SPECULATIVE_BUY",
+  "expected_safe_buy_range": [40, 200],
+  "expected_max_buy_range": [90, 200],
+  "expected_list_range": [90, 260],
+  "expected_confidence_range": [40, 90],
+  "expected_risk_range": [15, 95],
+  "notes": "Trait premium without trait sales — capped aggressiveness."
+}

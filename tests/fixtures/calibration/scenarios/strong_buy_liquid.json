@@ -1,0 +1,19 @@
+{
+  "name": "strong_buy_liquid",
+  "collection": "Demo Cream",
+  "number": 1001,
+  "attributes": [],
+  "listing_price_ton": 102,
+  "collection_floor_ton": 165,
+  "trait_floor_ton": null,
+  "recent_sales": [175, 176, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187],
+  "trait_recent_sales": [],
+  "similar_listings": [176, 178, 180, 182, 184],
+  "expected_decision": "STRONG_BUY",
+  "expected_safe_buy_range": [80, 200],
+  "expected_max_buy_range": [90, 200],
+  "expected_list_range": [120, 220],
+  "expected_confidence_range": [45, 95],
+  "expected_risk_range": [10, 85],
+  "notes": "Synthetic liquid tape; entry inside safe band."
+}

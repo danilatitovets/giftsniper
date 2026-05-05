@@ -1,0 +1,2 @@
+https://example.com/opaque/path
+https://unknown-market.test/foo/bar?x=1

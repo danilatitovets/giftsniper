@@ -1,0 +1,19 @@
+{
+  "name": "low_confidence_no_sales",
+  "collection": "Demo Cream",
+  "number": 1004,
+  "attributes": [],
+  "listing_price_ton": 120,
+  "collection_floor_ton": 130,
+  "trait_floor_ton": null,
+  "recent_sales": [],
+  "trait_recent_sales": [],
+  "similar_listings": [95, 210],
+  "expected_decision": "NEED_MORE_DATA",
+  "expected_safe_buy_range": [1, 250],
+  "expected_max_buy_range": [1, 250],
+  "expected_list_range": [80, 280],
+  "expected_confidence_range": [20, 55],
+  "expected_risk_range": [20, 95],
+  "notes": "No sales pulls confidence down; decision engine may refuse aggressive buy."
+}

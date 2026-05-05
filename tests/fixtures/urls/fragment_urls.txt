@@ -1,0 +1,3 @@
+# Synthetic examples — no session tokens. Replace during beta calibration.
+https://fragment.com/gift/ice-cream-217467
+https://fragment.com/gift/example-collection

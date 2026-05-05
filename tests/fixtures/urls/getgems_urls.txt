@@ -1,0 +1,4 @@
+# Synthetic examples for parser tests only. Replace with real beta URLs during calibration.
+https://getgems.io/collection/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC/217467
+https://www.getgems.io/nft/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC
+https://api.getgems.io/public-api

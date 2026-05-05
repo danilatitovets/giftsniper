@@ -1,0 +1,3 @@
+# Synthetic Tonnel-style paths (domains may vary). Calibrate with real public URLs in beta.
+https://tonnel.network/item/example
+https://www.tonnel.network/nft/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC

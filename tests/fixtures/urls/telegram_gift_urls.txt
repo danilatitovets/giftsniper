@@ -1,0 +1,5 @@
+# Synthetic t.me patterns — no private chats.
+https://t.me/nft/EQAbcdefghijklmnopqrstuvwxyz1234567890AbC
+https://t.me/gifts/ice-cream/217467
+https://telegram.me/gift/example-slug
+https://t.me/share/url?url=https%3A%2F%2Fgetgems.io%2Fnft%2Ftest

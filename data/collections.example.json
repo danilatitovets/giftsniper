@@ -1,0 +1,18 @@
+{
+  "Ice Cream": {
+    "aliases": ["ice cream", "IceCream", "icecream", "Ice Creams", "IceCreams"],
+    "tonapi": {
+      "collection_address": "0:54bec904be659da7f57a1d7fb64f27e9e26152ccccdd83d4da533eb3295cfa3a"
+    },
+    "getgems": {
+      "collection_address": "",
+      "slug": ""
+    },
+    "tonnel": {
+      "slug": ""
+    },
+    "fragment": {
+      "slug": ""
+    }
+  }
+}
