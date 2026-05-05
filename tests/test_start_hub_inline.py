@@ -34,6 +34,25 @@ def test_start_has_four_inline_buttons() -> None:
 
 
 @pytest.mark.asyncio
+async def test_waiting_input_prefers_preview_card_over_full_report(monkeypatch: pytest.MonkeyPatch) -> None:
+    state = MagicMock()
+    state.clear = AsyncMock()
+    msg = MagicMock(spec=Message)
+    msg.text = "https://tonviewer.com/nft/EQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    msg.from_user = User(id=1, is_bot=False, first_name="t")
+
+    preview = AsyncMock(return_value=True)
+    exec_check = AsyncMock()
+    monkeypatch.setattr("app.bot.handlers.passive_gift.try_send_nft_preview_card", preview)
+    monkeypatch.setattr(start_mod, "execute_check_payload", exec_check)
+
+    await start_mod.nft_check_waiting_handler(msg, state)
+    preview.assert_awaited_once()
+    exec_check.assert_not_awaited()
+    state.clear.assert_not_awaited()
+
+
+@pytest.mark.asyncio
 async def test_start_features_edits_same_message(monkeypatch: pytest.MonkeyPatch) -> None:
     class FakeCM:
         async def __aenter__(self) -> None:

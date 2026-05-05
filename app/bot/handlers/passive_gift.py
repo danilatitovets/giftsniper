@@ -263,11 +263,19 @@ async def help_find_nft_link_callback(query: CallbackQuery) -> None:
 
 @router.message(F.text, ~F.text.startswith("/"))
 async def passive_gift_text(message: Message, state: FSMContext) -> None:
-    text = (message.text or "").strip()
+    await try_send_nft_preview_card(message, state, (message.text or "").strip())
+
+
+async def try_send_nft_preview_card(message: Message, state: FSMContext, text: str) -> bool:
+    """Показывает короткую карточку NFT с медиа и action-кнопками.
+
+    Возвращает True, если ввод обработан как NFT-контекст; иначе False.
+    """
+    text = (text or "").strip()
     if not text or "\n" in text:
-        return
+        return False
     if not _smells_like_gift_context(text) or not is_nft_like_check_payload(text):
-        return
+        return False
 
     settings = get_settings()
     async with SessionLocal() as session:
@@ -286,16 +294,16 @@ async def passive_gift_text(message: Message, state: FSMContext) -> None:
                 "Это ссылка на коллекцию, а не на конкретный NFT. Пришли ссылку на сам NFT.",
                 reply_markup=_link_help_keyboard(),
             )
-            return
+            return True
         if gi.input_type == GiftInputType.unknown and not smells_like_gift_link(text):
-            return
+            return False
         progress = await message.answer(
             "Ссылка похожа на Gift/NFT, но в ней нет номера или адреса.\n"
             "Пришли так: /check Ice Cream #217467 или /check <NFT address>.\n\n"
             + format_unknown_gift_input_help(text, gi.parse_warnings, context="check"),
             reply_markup=_close_only_keyboard(),
         )
-        return
+        return True
 
     client = TonAPICollectionClient(settings)
     progress = await message.answer("⏳ Ищу NFT...")
@@ -310,7 +318,7 @@ async def passive_gift_text(message: Message, state: FSMContext) -> None:
             err_text,
             kb=_link_help_keyboard(),
         )
-        return
+        return True
     try:
         await message.bot.edit_message_text(
             "✅ NFT найден.",
@@ -368,6 +376,7 @@ async def passive_gift_text(message: Message, state: FSMContext) -> None:
     body = _build_preview_text_from_resolved(resolved)
     kb = _resolved_nft_keyboard(sid)
     await _send_resolved_nft_preview(message, resolved=resolved, media=media, body=body, kb=kb)
+    return True
 
 
 @router.callback_query(F.data.startswith("gift:"))

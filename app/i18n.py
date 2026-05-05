@@ -427,10 +427,11 @@ def _strings_en() -> dict[str, str]:
         ),
         "watch.add_hint": (
             "➕ Add to watchlist\n\n"
-            "Send /watch with a name, link, or NFT address, for example:\n"
-            "/watch Ice Cream #217467\n"
-            "/watch Whip Cupcake #57234\n"
-            "/watch Ice Cream"
+            "1) Send a link to a specific NFT (or NFT address / Ice Cream #217467).\n"
+            "2) Wait for the NFT card with action buttons.\n"
+            "3) Tap “✅ Add to list”.\n\n"
+            "Direct command also works:\n"
+            "/watch Ice Cream #217467"
         ),
     }
 
@@ -813,10 +814,11 @@ def _strings_ru() -> dict[str, str]:
         ),
         "watch.add_hint": (
             "➕ Добавить в отслеживание\n\n"
-            "Отправь команду с названием, ссылкой или адресом NFT, например:\n"
-            "/watch Ice Cream #217467\n"
-            "/watch Whip Cupcake #57234\n"
-            "/watch Ice Cream"
+            "1) Сначала пришли ссылку на конкретный NFT (или NFT address / Ice Cream #217467).\n"
+            "2) Дождись карточки NFT с кнопками действий.\n"
+            "3) Нажми кнопку «✅ Добавить в список».\n\n"
+            "Можно и командой напрямую:\n"
+            "/watch Ice Cream #217467"
         ),
     }
 

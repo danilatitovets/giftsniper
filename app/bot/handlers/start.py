@@ -352,6 +352,12 @@ async def start_handler(message: Message, state: FSMContext, user_created_this_r
                 user_was_created=user_created_this_request,
             )
     is_adm = user.role in {"admin", "owner"}
+    if user_created_this_request:
+        await message.answer(
+            t("onboarding.choose_language", "en"),
+            reply_markup=language_selector_keyboard(),
+        )
+        return
     lc = getattr(user, "language_code", None)
     if lc is None or not str(lc).strip():
         await message.answer(
@@ -643,8 +649,14 @@ async def start_back_callback(callback: CallbackQuery, state: FSMContext) -> Non
     ExcludePendingDealPriceMessageFilter(),
 )
 async def nft_check_waiting_handler(message: Message, state: FSMContext) -> None:
+    payload = (message.text or "").strip()
+    from app.bot.handlers.passive_gift import try_send_nft_preview_card
+
+    handled = await try_send_nft_preview_card(message, state, payload)
+    if handled:
+        return
     await state.clear()
-    await execute_check_payload(message, (message.text or "").strip())
+    await execute_check_payload(message, payload)
 
 
 @router.callback_query(F.data == CB_NFT_CHECK_BACK)

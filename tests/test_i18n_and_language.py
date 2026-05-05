@@ -71,6 +71,32 @@ async def test_first_start_shows_language_selector(monkeypatch: pytest.MonkeyPat
 
 
 @pytest.mark.asyncio
+async def test_new_user_forces_language_selector_even_with_language_code(monkeypatch: pytest.MonkeyPatch) -> None:
+    class FakeCM:
+        async def __aenter__(self) -> None:
+            return None
+
+        async def __aexit__(self, *a: object) -> bool:
+            return False
+
+    # Даже если по какой-то причине код языка уже заполнен,
+    # для нового пользователя сначала показываем селектор.
+    user_obj = MagicMock(plan="free", role="user", language_code="ru")
+    monkeypatch.setattr(start_mod, "SessionLocal", lambda: FakeCM())
+    monkeypatch.setattr(start_mod.UserRepository, "get_or_create", AsyncMock(return_value=user_obj))
+
+    msg = MagicMock(spec=Message)
+    msg.from_user = User(id=102, is_bot=False, first_name="t")
+    msg.text = "/start"
+    msg.answer = AsyncMock()
+    state = MagicMock()
+    state.clear = AsyncMock()
+    await start_mod.start_handler(msg, state, user_created_this_request=True)
+    text = msg.answer.await_args.args[0]
+    assert "Choose your language" in text
+
+
+@pytest.mark.asyncio
 async def test_language_selection_saves_preference(monkeypatch: pytest.MonkeyPatch) -> None:
     class FakeCM:
         async def __aenter__(self) -> None:

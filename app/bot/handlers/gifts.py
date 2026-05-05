@@ -71,14 +71,14 @@ def _watchlist_inline_keyboard(gifts: list, *, lang: str) -> InlineKeyboardMarku
     rows: list[list[InlineKeyboardButton]] = []
     btn_market = t("mylist.btn_row_market", lang)
     btn_notif = t("notifications.btn", lang)
-    for g in gifts:
+    for idx, g in enumerate(gifts, start=1):
         rows.append(
             [
-                InlineKeyboardButton(text=btn_market, callback_data=f"watchlist:check:{g.id}"),
-                InlineKeyboardButton(text="❌ Удалить", callback_data=f"watchlist:remove:{g.id}"),
-                InlineKeyboardButton(text=btn_notif, callback_data=f"watchlist:signals:{g.id}"),
+                InlineKeyboardButton(text=f"{btn_market} #{idx}", callback_data=f"watchlist:check:{g.id}"),
+                InlineKeyboardButton(text=f"{btn_notif} #{idx}", callback_data=f"watchlist:signals:{g.id}"),
             ]
         )
+        rows.append([InlineKeyboardButton(text=f"❌ Удалить #{idx}", callback_data=f"watchlist:remove:{g.id}")])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
@@ -87,8 +87,8 @@ async def _apply_watch_intake(message: Message, body: str, *, command_label: str
     body = body.strip()
     if not body:
         await message.answer(
-            f"Формат: {command_label} Ice Cream #217467, {command_label} <NFT address> или {command_label} <ссылка>\n"
-            "Если ссылка неполная — уточни коллекцию и номер."
+            "Скиньте ссылку на NFT (или NFT address / Ice Cream #217467).\n"
+            "После карточки нажмите кнопку «✅ Добавить в список»."
         )
         return
 
