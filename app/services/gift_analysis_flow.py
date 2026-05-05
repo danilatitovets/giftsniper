@@ -31,6 +31,8 @@ from app.services.real_market_collection_scan import (
     FullMarketNftReport,
     format_full_market_nft_report,
     format_full_market_nft_report_for_telegram_edit,
+    format_nft_check_compact_caption_html,
+    format_nft_check_minimal_caption_html,
     format_progress_message,
     run_full_market_analysis_flow,
 )
@@ -135,7 +137,6 @@ async def deliver_full_market_nft_check_result(
     lang: str | None = None,
 ) -> None:
     """Финал /check: одно сообщение — правка progress, без отдельного медиа и без «Готово»."""
-    _ = skip_photo_if_url
     _ = edit_only
     full_plain = format_full_market_nft_report(report)
     sidebar_body = full_plain if len(full_plain) <= 16000 else full_plain[:15997] + "…"
@@ -159,6 +160,19 @@ async def deliver_full_market_nft_check_result(
         telegram_id, full_report=sidebar_body, nft_address=addr, snapshot=snapshot
     )
     kb = build_nft_check_result_keyboard(sidebar_id, nft_address=addr, lang=lang)
+
+    # Best-effort NFT photo above the full text report.
+    img_url = (report.target.image_url or "").strip()
+    if img_url and (not skip_photo_if_url or img_url != skip_photo_if_url):
+        cap = format_nft_check_compact_caption_html(report)
+        if len(cap) > 1024:
+            cap = format_nft_check_minimal_caption_html(report)
+        if len(cap) > 1024:
+            cap = cap[:1023] + "…"
+        try:
+            await message.answer_photo(photo=img_url, caption=cap, parse_mode="HTML")
+        except Exception:
+            pass
 
     try:
         await message.bot.edit_message_text(

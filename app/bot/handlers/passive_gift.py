@@ -534,7 +534,8 @@ async def passive_gift_callback(query: CallbackQuery, state: FSMContext) -> None
         await query.message.answer(body, reply_markup=my_list_after_add_inline_keyboard(lang=lang))
         return
     if action == "deal_check":
-        runtime_state.pending_deal_put(user.id, nft_address=nft_address)
+        # pending_deal_* keyed by telegram_id (from_user.id), not internal DB user.id.
+        runtime_state.pending_deal_put(query.from_user.id, nft_address=nft_address)
         await query.answer("Жду цену")
         if query.message:
             await query.message.answer("Укажи цену сделки в TON (одним сообщением, без /команд).")
