@@ -265,11 +265,16 @@ async def help_find_nft_link_callback(query: CallbackQuery) -> None:
 
 @router.message(F.text, ~F.text.startswith("/"))
 async def passive_gift_text(message: Message, state: FSMContext) -> None:
-    # Пассивные подсказки показываем только в явном режиме проверки NFT,
-    # чтобы случайные сообщения в обычном чате не триггерили карточку действий.
-    if await state.get_state() != CheckNftFlow.waiting_input:
+    text = (message.text or "").strip()
+    current_state = await state.get_state()
+    if current_state == CheckNftFlow.waiting_input:
+        await try_send_nft_preview_card(message, state, text)
         return
-    await try_send_nft_preview_card(message, state, (message.text or "").strip())
+    # В обычном чате реагируем только на явные NFT/market ссылки:
+    # случайный текст не должен вызывать карточку действий.
+    if not smells_like_gift_link(text):
+        return
+    await try_send_nft_preview_card(message, state, text)
 
 
 async def try_send_nft_preview_card(message: Message, state: FSMContext, text: str) -> bool:
