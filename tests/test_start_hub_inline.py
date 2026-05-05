@@ -67,6 +67,7 @@ async def test_start_features_edits_same_message(monkeypatch: pytest.MonkeyPatch
     msg = MagicMock(spec=Message)
     msg.photo = None
     msg.edit_text = AsyncMock()
+    msg.answer = AsyncMock()
     msg.edit_caption = AsyncMock()
     msg.answer = AsyncMock()
 
@@ -199,6 +200,7 @@ async def test_start_check_enters_existing_waiting_input_flow(monkeypatch: pytes
     msg = MagicMock(spec=Message)
     msg.photo = None
     msg.edit_text = AsyncMock()
+    msg.answer = AsyncMock()
 
     cq = MagicMock(spec=CallbackQuery)
     cq.data = CB_START_CHECK

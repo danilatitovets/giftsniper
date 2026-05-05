@@ -214,10 +214,15 @@ async def enter_hub_nft_check_waiting_on_message(message: Message, *, state: FSM
     )
     body = t("start.hub_check_prompt", lang)
     kb = start_hub_back_only_keyboard(lang=lang)
+    posted_fresh_prompt = False
     try:
         await _edit_start_message_content(message, text=body, reply_markup=kb)
     except TelegramBadRequest:
         await message.answer(body, reply_markup=kb)
+        posted_fresh_prompt = True
+    # Явный короткий сигнал внизу чата, чтобы пользователь видел, что бот ждёт ссылку.
+    if not posted_fresh_prompt:
+        await message.answer(t("start.hub_check_bottom_hint", lang))
 
 
 async def _send_start_main_with_hero(
@@ -538,7 +543,11 @@ async def start_my_list_callback(callback: CallbackQuery, state: FSMContext) -> 
     await state.clear()
     await callback.answer()
     if callback.message and callback.from_user:
-        await send_watchlist_message(callback.message)
+        await send_watchlist_message(
+            callback.message,
+            telegram_id=callback.from_user.id,
+            username=callback.from_user.username,
+        )
 
 
 @router.callback_query(F.data == CB_UX_CLOSE_MESSAGE)
@@ -764,9 +773,17 @@ async def settings_stub_watchlist_callback(callback: CallbackQuery, state: FSMCo
         user = await UserRepository(session).get_or_create(callback.from_user.id, callback.from_user.username)
         n = await GiftRepository(session).count_by_user(user.id)
     if n == 0:
-        await send_empty_watchlist_message(callback.message)
+        await send_empty_watchlist_message(
+            callback.message,
+            telegram_id=callback.from_user.id,
+            username=callback.from_user.username,
+        )
     else:
-        await send_watchlist_message(callback.message)
+        await send_watchlist_message(
+            callback.message,
+            telegram_id=callback.from_user.id,
+            username=callback.from_user.username,
+        )
 
 
 @router.callback_query(F.data == CB_SETTINGS_STUB_BACK)

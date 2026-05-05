@@ -85,6 +85,7 @@ def _strings_en() -> dict[str, str]:
             "Best: a link to the NFT itself, not the collection page.\n\n"
             "Then I will show the NFT card and action buttons."
         ),
+        "start.hub_check_bottom_hint": "⬇️ Send NFT link here. Then tap “Check market” on the card.",
         "start.hub_features": (
             "📊 GiftSniper features\n\n"
             "• finds an NFT by link;\n"
@@ -469,6 +470,7 @@ def _strings_ru() -> dict[str, str]:
             "Лучше всего — ссылка на сам NFT, не на коллекцию.\n\n"
             "После этого я покажу карточку NFT и кнопки действий."
         ),
+        "start.hub_check_bottom_hint": "⬇️ Пришли сюда ссылку на NFT. Потом нажми «🔎 Проверить рынок» на карточке.",
         "start.hub_features": (
             "📊 Возможности GiftSniper\n\n"
             "• находит NFT по ссылке;\n"

@@ -27,6 +27,8 @@ from app.services.universal_nft_resolver import ResolvedNft, resolve_universal_n
 from app.i18n import t, text_lang_from_user
 from app.services.watchlist_add_flow import MyListAddResult, add_to_my_list
 
+from app.bot.states import CheckNftFlow
+
 router = Router()
 logger = logging.getLogger(__name__)
 
@@ -263,6 +265,10 @@ async def help_find_nft_link_callback(query: CallbackQuery) -> None:
 
 @router.message(F.text, ~F.text.startswith("/"))
 async def passive_gift_text(message: Message, state: FSMContext) -> None:
+    # Пассивные подсказки показываем только в явном режиме проверки NFT,
+    # чтобы случайные сообщения в обычном чате не триггерили карточку действий.
+    if await state.get_state() != CheckNftFlow.waiting_input:
+        return
     await try_send_nft_preview_card(message, state, (message.text or "").strip())
 
 

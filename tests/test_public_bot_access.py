@@ -19,6 +19,7 @@ from app.services.gift_intake import GiftIdentity
 from app.services import nft_check_limits as nft_limits_pkg
 from app.services.real_market_collection_scan import TargetNftInfo
 from app.services.universal_nft_resolver import ResolvedNft
+from app.bot.states import CheckNftFlow
 
 
 def _settings(**kw):
@@ -237,6 +238,7 @@ async def test_passive_nft_link_sends_preview_with_market_button(monkeypatch: py
     m = _Msg()
     fsm = MagicMock(spec=FSMContext)
     fsm.clear = AsyncMock()
+    fsm.get_state = AsyncMock(return_value=CheckNftFlow.waiting_input)
     await passive_gift.passive_gift_text(m, fsm)
 
     flat = "\n".join(t for t, _ in m.answers)
@@ -313,7 +315,7 @@ async def test_start_upgrade_callback_reaches_upgrade_carousel(monkeypatch: pyte
 async def test_start_mylist_callback_reaches_watchlist(monkeypatch: pytest.MonkeyPatch):
     sent = {"n": 0}
 
-    async def _send_wl(message):
+    async def _send_wl(message, **_kwargs):
         sent["n"] += 1
 
     class _Q:

@@ -177,16 +177,30 @@ async def _apply_watch_intake(message: Message, body: str, *, command_label: str
         await message.answer(format_gift_watchlist_card(card_gift, gift.id, updated))
 
 
-async def send_empty_watchlist_message(message: Message) -> None:
+async def send_empty_watchlist_message(
+    message: Message,
+    *,
+    telegram_id: int | None = None,
+    username: str | None = None,
+) -> None:
     async with SessionLocal() as session:
-        user = await UserRepository(session).get_or_create(message.from_user.id, message.from_user.username)
+        actor_tid = int(telegram_id) if telegram_id is not None else int(message.from_user.id)
+        actor_username = username if username is not None else message.from_user.username
+        user = await UserRepository(session).get_or_create(actor_tid, actor_username)
         lang = text_lang_from_user(user)
     await message.answer(t("watchlist.empty", lang), reply_markup=empty_watchlist_inline_keyboard(lang=lang))
 
 
-async def send_watchlist_message(message: Message) -> None:
+async def send_watchlist_message(
+    message: Message,
+    *,
+    telegram_id: int | None = None,
+    username: str | None = None,
+) -> None:
     async with SessionLocal() as session:
-        user = await UserRepository(session).get_or_create(message.from_user.id, message.from_user.username)
+        actor_tid = int(telegram_id) if telegram_id is not None else int(message.from_user.id)
+        actor_username = username if username is not None else message.from_user.username
+        user = await UserRepository(session).get_or_create(actor_tid, actor_username)
         lang = text_lang_from_user(user)
         gifts = await GiftRepository(session).list_by_user(user.id)
         analysis_repo = AnalysisRepository(session)
